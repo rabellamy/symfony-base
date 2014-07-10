@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             d.cmd = ["nginx"]
             d.name = "symfony-nginx"
             d.ports = ["80:80"]
-            d.volumes = ["/vagrant:/usr/local/nginx/html"]
+            d.volumes = ["/app:/static"]
             d.vagrant_vagrantfile = "docker-host/Vagrantfile"
         end
     end
