@@ -10,6 +10,7 @@ RUN yes | apt-get install -y php5 php5-fpm php-pear php5-common php5-mcrypt php5
 
 ADD www.conf /etc/php5/fpm/pool.d/www.conf
 ADD php-fpm.conf /etc/php5/fpm/php-fpm.conf
+ADD php.ini /etc/php5/fpm/php.ini
 
 EXPOSE 9000
 VOLUME ["/app"]

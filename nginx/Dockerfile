@@ -7,7 +7,8 @@ MAINTAINER skriptble <kris.brandow@gmail.com>
 
 ADD nginx.conf /etc/nginx.conf
 # COPY app /app
-# ADD authentication-site.conf /etc/nginx/sites-enabled/authentication-site.conf
+ADD authentication-site.conf /etc/nginx/sites-enabled/authentication-site.conf
 ADD static-site.conf /etc/nginx/sites-enabled/static-site.conf
+ADD mimie.types /etc/nginx/conf/mime.types
 
 EXPOSE 80
