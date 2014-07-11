@@ -15,4 +15,4 @@ ADD php.ini /etc/php5/fpm/php.ini
 EXPOSE 9000
 VOLUME ["/app"]
 
-CMD ["/usr/sbin/php5-fpm"]
+CMD ["/usr/sbin/php5-fpm", "--allow-to-run-as-root"]
