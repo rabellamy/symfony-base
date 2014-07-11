@@ -1,3 +1,4 @@
 */.vagrant/*
 .vagrant
 .mysql_data
+.mysql_data/*
