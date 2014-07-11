@@ -12,6 +12,7 @@ RUN mkdir -p /var/log/supervisor
 # Add configuration files
 ADD default.conf /etc/nginx/sites-available/default
 ADD date-time.conf /etc/php5/fpm/conf.d/date_time.ini
+ADD php-fpm-pool.conf /etc/php5/fpm/pool.d/www.conf
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Ensure NGINX runs in foreground mode
