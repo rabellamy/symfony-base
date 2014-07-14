@@ -1,0 +1,3 @@
+dockerhost:
+  ip: 192.168.13.37
+  hostname: app.dev

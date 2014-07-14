@@ -1,5 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+#
+require 'yaml'
+
+default_config = File.dirname(__FILE__) + "/default.yml"
+vconfig = YAML::load_file(default_config)
+
+if File.file?("app.default.yml")
+    vconfig.merge!(YAML::load_file("app.default.yml"))
+elsif File.file?("app.local.yml")
+    vconfig.merge!(YAML::load_file("app.app.local.yml"))
+end
+
+
 Vagrant.configure("2") do |config|
     config.vm.box = "precise64"
     config.vm.provision "docker"
@@ -7,9 +20,11 @@ Vagrant.configure("2") do |config|
         "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
     # Add shared folder
-    config.vm.synced_folder "../", "/app"
+    config.vm.synced_folder "../app", "/app"
+    config.vm.synced_folder "../.mysql", "/data"
     # Add private network
-    config.vm.network "private_network", ip: "192.168.44.10"
+    config.vm.network "private_network", ip: vconfig["dockerhost"]["ip"]
+    config.vm.hostname = vconfig["dockerhost"]["hostname"]
     # Add port forwarding
     config.vm.network "forwarded_port", guest: 80, host: 1234
 end

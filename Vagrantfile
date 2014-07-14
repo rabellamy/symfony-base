@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             	"MYSQL_PASS" => "symfony-nyccamp"
             	}
             d.ports = ["3306:3306"]
-            d.volumes = ["/app/.mysql_data:/var/lib/mysql"]
+            d.volumes = ["/data:/var/lib/mysql"]
             d.vagrant_vagrantfile = "docker-host/Vagrantfile"
         end
     end
@@ -49,9 +49,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             d.name = "symfony-nginxphp"
             d.cmd = ["/usr/bin/supervisord"]
             d.ports = ["80:80"]
-            d.volumes = ["/app/symfony:/app"]
+            d.volumes = ["/app:/app"]
             d.vagrant_vagrantfile = "docker-host/Vagrantfile"
             d.link("symfony-mysql:mysql.docker")
+        end
+    end
+
+    config.vm.define "mysql-setup" do |mysqlsetup|
+        mysqlsetup.vm.provider :docker do |d|
+            d.build_dir = "mysql"
+            d.name = "mysql-setup"
+            d.cmd = ["/bin/bash", "-c", "\"/usr/bin/mysql_install_db\""]
+            d.volumes = ["/data:/var/lib/mysql"]
+            d.vagrant_vagrantfile = "docker-host/Vagrantfile"
         end
     end
 end
